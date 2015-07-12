@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">TouchTheNumber</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="start">ゲーム開始</string>
+    <string name="clear">クリア！</string>
+    <string name="end">ゲーム終了</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_gameactivity">gameactivity</string>
+</resources>
