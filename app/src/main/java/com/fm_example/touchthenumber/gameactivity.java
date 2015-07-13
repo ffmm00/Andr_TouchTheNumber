@@ -1,5 +1,6 @@
 package com.fm_example.touchthenumber;
 
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -13,7 +14,8 @@ import android.view.View.OnClickListener;
 public class gameactivity extends ActionBarActivity {
 
     private ImageButton imageButton;
-    private int c = 1;
+    private int c = 0;
+    private int i = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,42 +40,29 @@ public class gameactivity extends ActionBarActivity {
         ImageButton Imgfit = (ImageButton) findViewById(R.id.fifth);
         ImageButton Imgsit = (ImageButton) findViewById(R.id.sixty);
 
-        Imgone.setOnClickListener(new OnClickListener() {
-            public void onClick(View v) {
-                if (c == 1) {
-                    Toast.makeText(getApplicationContext(), "testone",
-                            Toast.LENGTH_SHORT).show();
-                    c++;
+        ImageButton images[] = {Imgone, Imgtwo, Imgthr, Imgfor, Imgfiv};
+
+        for (i = 0; i < 5; i++) {
+            images[i].setOnClickListener(new OnClickListener() {
+                public void onClick(View v) {
+                    if (c < 3) {
+                        Toast.makeText(getApplicationContext(), "test",
+                                Toast.LENGTH_SHORT).show();
+                        c++;
+                    } else
+                        Toast.makeText(getApplicationContext(), "ゲーム終了",
+                                Toast.LENGTH_SHORT).show();
                 }
-            }
-        });
-
-        Imgtwo.setOnClickListener(new OnClickListener() {
+            });
+        }
+        Button btnNext = (Button) findViewById(R.id.button2);
+        btnNext.setOnClickListener(new View.OnClickListener() {
+            @Override
             public void onClick(View v) {
-                if (c == 2) {
-                    c++;
+                if (c >= 3) {
+                    Intent intent = new Intent(gameactivity.this, MainActivity.class);
+                    startActivity(intent);
                 }
-            }
-        });
-
-        Imgthr.setOnClickListener(new OnClickListener() {
-            public void onClick(View v) {
-                if (c == 3)
-                    c++;
-            }
-        });
-
-        Imgfor.setOnClickListener(new OnClickListener() {
-            public void onClick(View v) {
-                if (c == 4)
-                    c++;
-            }
-        });
-
-        Imgfiv.setOnClickListener(new OnClickListener() {
-            public void onClick(View v) {
-                if (c == 5)
-                    c++;
             }
         });
 
