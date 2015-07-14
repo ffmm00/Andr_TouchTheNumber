@@ -153,11 +153,12 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/end"
-        android:id="@+id/button2"
+        android:textSize="30dp"
+        android:text="ゲーム終了"
+        android:visibility="invisible"
+        android:id="@+id/egame"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true" />
-
 
 
 
