@@ -9,15 +9,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.LinearLayout;
+
 import android.widget.Toast;
 import android.view.View.OnClickListener;
+
+import java.util.Random;
 
 public class gameactivity extends ActionBarActivity {
 
     private int c = 1;
-
-    private final int WC = ViewGroup.LayoutParams.WRAP_CONTENT;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,150 +41,157 @@ public class gameactivity extends ActionBarActivity {
         final ImageButton Imgfit = (ImageButton) findViewById(R.id.fifth);
         final ImageButton Imgsit = (ImageButton) findViewById(R.id.sixty);
 
-        Imgone.setOnClickListener(new OnClickListener() {
+        ImageButton[] img = {Imgone, Imgtwo, Imgthr, Imgfor, Imgfiv, Imgsix
+                , Imgsev, Imgeig, Imgnin, Imgten, Imgele, Imgtwe, Imgthy
+                , Imgfot, Imgfit, Imgsit};
+
+        int[] draw = {R.drawable.a, R.drawable.b, R.drawable.c, R.drawable.d,
+                R.drawable.e, R.drawable.f, R.drawable.g, R.drawable.h,
+                R.drawable.i, R.drawable.j, R.drawable.k, R.drawable.l,
+                R.drawable.m, R.drawable.n, R.drawable.o, R.drawable.p};
+
+        Random rand = new Random();
+        int[] ran = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15};
+
+        for (int i = 0; i < 16; i++) {
+            int n = rand.nextInt(16);
+            int temp = ran[i];
+            ran[i] = ran[n];
+            ran[n] = temp;
+        }
+
+        for (int i = 0; i < 16; i++) {
+            img[ran[i]].setImageResource(draw[i]);
+        }
+
+        img[ran[0]].setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
                 if (c == 1) {
                     c++;
-                    Imgone.setEnabled(false);
                 }
             }
         });
 
-        Imgtwo.setOnClickListener(new OnClickListener() {
+        img[ran[1]].setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
                 if (c == 2) {
                     c++;
-                    Imgtwo.setEnabled(false);
                 }
             }
         });
 
-        Imgthr.setOnClickListener(new OnClickListener() {
+        img[ran[2]].setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
                 if (c == 3) {
                     c++;
-                    Imgthr.setEnabled(false);
                 }
             }
         });
 
-        Imgfor.setOnClickListener(new OnClickListener() {
+        img[ran[3]].setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
                 if (c == 4) {
                     c++;
-                    Imgfor.setEnabled(false);
                 }
             }
         });
 
-        Imgfiv.setOnClickListener(new OnClickListener() {
+        img[ran[4]].setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
                 if (c == 5) {
                     c++;
-                    Imgfiv.setEnabled(false);
                 }
             }
         });
 
-        Imgsix.setOnClickListener(new OnClickListener() {
+        img[ran[5]].setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
                 if (c == 6) {
                     c++;
-                    Imgsix.setEnabled(false);
                 }
             }
         });
 
-        Imgsev.setOnClickListener(new OnClickListener() {
+        img[ran[6]].setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
                 if (c == 7) {
                     c++;
-                    Imgsev.setEnabled(false);
                 }
             }
         });
 
-        Imgeig.setOnClickListener(new OnClickListener() {
+        img[ran[7]].setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
                 if (c == 8) {
                     c++;
-                    Imgeig.setEnabled(false);
                 }
             }
         });
 
-        Imgnin.setOnClickListener(new OnClickListener() {
+        img[ran[8]].setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
                 if (c == 9) {
                     c++;
-                    Imgnin.setEnabled(false);
                 }
             }
         });
 
-        Imgten.setOnClickListener(new OnClickListener() {
+        img[ran[9]].setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
                 if (c == 10) {
                     c++;
-                    Imgten.setEnabled(false);
                 }
             }
         });
 
-        Imgele.setOnClickListener(new OnClickListener() {
+        img[ran[10]].setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
                 if (c == 11) {
                     c++;
-                    Imgele.setEnabled(false);
                 }
             }
         });
 
-        Imgtwe.setOnClickListener(new OnClickListener() {
+        img[ran[11]].setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
                 if (c == 12) {
                     c++;
-                    Imgtwe.setEnabled(false);
                 }
             }
         });
 
-        Imgthy.setOnClickListener(new OnClickListener() {
+        img[ran[12]].setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
                 if (c == 13) {
                     c++;
-                    Imgthy.setEnabled(false);
                 }
             }
         });
 
-        Imgfot.setOnClickListener(new OnClickListener() {
+        img[ran[13]].setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
                 if (c == 14) {
                     c++;
-                    Imgfot.setEnabled(false);
                 }
             }
         });
 
-        Imgfit.setOnClickListener(new OnClickListener() {
+        img[ran[14]].setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
                 if (c == 15) {
                     c++;
-                    Imgfit.setEnabled(false);
                 }
             }
         });
 
 
-        Imgsit.setOnClickListener(new OnClickListener() {
+        img[ran[15]].setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
                 if (c == 16) {
                     Toast.makeText(getApplicationContext(), "ゲームクリア",
                             Toast.LENGTH_LONG).show();
                     c++;
-                    Imgsit.setEnabled(false);
-                    Button btn1 = (Button)gameactivity.this.findViewById(R.id.egame);
+                    Button btn1 = (Button) gameactivity.this.findViewById(R.id.egame);
                     btn1.setVisibility(View.VISIBLE);
                 }
             }
