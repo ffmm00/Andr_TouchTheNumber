@@ -147,6 +147,53 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true" />
 
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/four"
+        android:layout_toRightOf="@+id/four"
+        android:layout_toEndOf="@+id/four"
+        android:layout_marginLeft="95dp"
+        android:layout_marginStart="95dp">
+
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="00" android:textSize="50dp"
+            android:visibility="invisible"/>
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=":" android:textSize="50dp"
+            android:visibility="invisible"/>
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="00" android:textSize="50dp"
+            android:visibility="invisible"/>
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=":" android:textSize="50dp"
+            android:visibility="invisible"/>
+
+        <TextView
+            android:id="@+id/textView5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0" android:textSize="50dp"
+            android:visibility="invisible"/>
+
+    </LinearLayout>
+
 
 
 </RelativeLayout>
