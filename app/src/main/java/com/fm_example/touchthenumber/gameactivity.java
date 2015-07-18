@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 
@@ -16,13 +15,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.view.View.OnClickListener;
 
+import java.util.Arrays;
 import java.util.Random;
 
 public class gameactivity extends ActionBarActivity {
 
-    TextView timerMin, timerSec, timerMs, timerDot1, timerDot2;
-    int min, sec, m_Sec;
-    private int c = 1;
+    TextView timerMin, timerSec, timerMs, timerDot1, timerDot2, missCountText, missTimes, clear;
+    int min, sec, mSec;
+    private int number = 0, missCount = 0;
     long date;
     private Loop loop = new Loop();
 
@@ -36,222 +36,450 @@ public class gameactivity extends ActionBarActivity {
         timerSec = (TextView) findViewById(R.id.textView3);
         timerDot2 = (TextView) findViewById(R.id.textView4);
         timerMs = (TextView) findViewById(R.id.textView5);
-        final ImageButton Imgone = (ImageButton) findViewById(R.id.one);
-        final ImageButton Imgtwo = (ImageButton) findViewById(R.id.two);
-        final ImageButton Imgthr = (ImageButton) findViewById(R.id.three);
-        final ImageButton Imgfor = (ImageButton) findViewById(R.id.four);
-        final ImageButton Imgfiv = (ImageButton) findViewById(R.id.five);
-        final ImageButton Imgsix = (ImageButton) findViewById(R.id.six);
-        final ImageButton Imgsev = (ImageButton) findViewById(R.id.seven);
-        final ImageButton Imgeig = (ImageButton) findViewById(R.id.eight);
-        final ImageButton Imgnin = (ImageButton) findViewById(R.id.nine);
-        final ImageButton Imgten = (ImageButton) findViewById(R.id.ten);
-        final ImageButton Imgele = (ImageButton) findViewById(R.id.ele);
-        final ImageButton Imgtwe = (ImageButton) findViewById(R.id.twel);
-        final ImageButton Imgthy = (ImageButton) findViewById(R.id.therty);
-        final ImageButton Imgfot = (ImageButton) findViewById(R.id.forty);
-        final ImageButton Imgfit = (ImageButton) findViewById(R.id.fifth);
-        final ImageButton Imgsit = (ImageButton) findViewById(R.id.sixty);
+        missCountText = (TextView) findViewById(R.id.textView6);
+        missTimes = (TextView) findViewById(R.id.textView7);
+        clear = (TextView) findViewById(R.id.textView11);
+        final ImageButton imgOne = (ImageButton) findViewById(R.id.one);
+        final ImageButton imgTwo = (ImageButton) findViewById(R.id.two);
+        final ImageButton imgThree = (ImageButton) findViewById(R.id.three);
+        final ImageButton imgFour = (ImageButton) findViewById(R.id.four);
+        final ImageButton imgFive = (ImageButton) findViewById(R.id.five);
+        final ImageButton imgSix = (ImageButton) findViewById(R.id.six);
+        final ImageButton imgSeven = (ImageButton) findViewById(R.id.seven);
+        final ImageButton imgEight = (ImageButton) findViewById(R.id.eight);
+        final ImageButton imgNine = (ImageButton) findViewById(R.id.nine);
+        final ImageButton imgTen = (ImageButton) findViewById(R.id.ten);
+        final ImageButton imgEleven = (ImageButton) findViewById(R.id.eleven);
+        final ImageButton imgTwelve = (ImageButton) findViewById(R.id.twelve);
+        final ImageButton imgThrteen = (ImageButton) findViewById(R.id.thirteen);
+        final ImageButton imgFourteen = (ImageButton) findViewById(R.id.fourteen);
+        final ImageButton imgFifteen = (ImageButton) findViewById(R.id.fifteen);
+        final ImageButton imgSiteen = (ImageButton) findViewById(R.id.sixteen);
+        final ImageButton imgSeventeen = (ImageButton) findViewById(R.id.seventeen);
+        final ImageButton imgEighteen = (ImageButton) findViewById(R.id.eighteen);
 
-        final TextView[] timer = {timerMin, timerDot1, timerSec, timerDot2, timerMs};
+        final TextView[] timer = {timerMin, timerDot1, timerSec, timerDot2, timerMs,
+                missCountText, clear,missTimes};
 
-        ImageButton[] img = {Imgone, Imgtwo, Imgthr, Imgfor, Imgfiv, Imgsix
-                , Imgsev, Imgeig, Imgnin, Imgten, Imgele, Imgtwe, Imgthy
-                , Imgfot, Imgfit, Imgsit};
+        ImageButton[] img = {imgOne, imgTwo, imgThree, imgFour, imgFive, imgSix
+                , imgSeven, imgEight, imgNine, imgTen, imgEleven, imgTwelve, imgThrteen
+                , imgFourteen, imgFifteen, imgSiteen, imgSeventeen, imgEighteen};
 
-        int[] draw = {R.drawable.a, R.drawable.b, R.drawable.c, R.drawable.d,
-                R.drawable.e, R.drawable.f, R.drawable.g, R.drawable.h,
-                R.drawable.i, R.drawable.j, R.drawable.k, R.drawable.l,
-                R.drawable.m, R.drawable.n, R.drawable.o, R.drawable.p};
+        int[] draw = {R.drawable.icon_01, R.drawable.icon_02, R.drawable.icon_03, R.drawable.icon_04,
+                R.drawable.icon_05, R.drawable.icon_06, R.drawable.icon_07, R.drawable.icon_08,
+                R.drawable.icon_09, R.drawable.icon_10, R.drawable.icon_11, R.drawable.icon_12,
+                R.drawable.icon_13, R.drawable.icon_14, R.drawable.icon_15, R.drawable.icon_16,
+                R.drawable.icon_17, R.drawable.icon_18, R.drawable.icon_19, R.drawable.icon_20,
+                R.drawable.icon_21, R.drawable.icon_22, R.drawable.icon_23, R.drawable.icon_24,
+                R.drawable.icon_25, R.drawable.icon_26, R.drawable.icon_27, R.drawable.icon_28,
+                R.drawable.icon_29, R.drawable.icon_30, R.drawable.icon_31, R.drawable.icon_32,
+                R.drawable.icon_33, R.drawable.icon_34, R.drawable.icon_35, R.drawable.icon_36,
+                R.drawable.icon_37, R.drawable.icon_38, R.drawable.icon_39, R.drawable.icon_40,
+                R.drawable.icon_41,};
+
+        Random rand = new Random();
+
+        int[] randomPictureNum = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15,
+                16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30,
+                31, 32, 33, 34, 35, 36, 37, 38, 39, 40};
+
+        for (int i = 0; i < 41; i++) {
+            int n = rand.nextInt(41);
+            int temp = randomPictureNum[i];
+            randomPictureNum[i] = randomPictureNum[n];
+            randomPictureNum[n] = temp;
+        }
+
+        int[] picture = new int[18];
+
+        for (int i = 0; i < 18; i++) {
+            picture[i] = randomPictureNum[i];
+        }
+
+        Arrays.sort(picture);
+
+
+        final int oddNum[] = new int[18];
+
+        for (int i = 0; i < 18; i++) {
+            if (picture[i] % 2 == 0) {
+                oddNum[i]++;
+            }
+        }
+
+
+        int[] randomNum = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17};
+
+        for (int i = 0; i < 18; i++) {
+            int n = rand.nextInt(18);
+            int temp = randomNum[i];
+            randomNum[i] = randomNum[n];
+            randomNum[n] = temp;
+        }
+
+        for (int i = 0; i < 18; i++) {
+            img[randomNum[i]].setImageResource(draw[picture[i]]);
+        }
+
+        final ImageButton[] click = {img[randomNum[0]], img[randomNum[1]], img[randomNum[2]],
+                img[randomNum[3]], img[randomNum[4]], img[randomNum[5]], img[randomNum[6]],
+                img[randomNum[7]], img[randomNum[8]], img[randomNum[9]], img[randomNum[10]],
+                img[randomNum[11]], img[randomNum[12]], img[randomNum[13]],
+                img[randomNum[14]], img[randomNum[15]], img[randomNum[16]], img[randomNum[17]]};
 
         date = System.currentTimeMillis();
         loop.start();
 
-        Random rand = new Random();
-        int[] ran = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15};
-
-        for (int i = 0; i < 16; i++) {
-            int n = rand.nextInt(16);
-            int temp = ran[i];
-            ran[i] = ran[n];
-            ran[n] = temp;
-        }
-
-        for (int i = 0; i < 16; i++) {
-            img[ran[i]].setImageResource(draw[i]);
-        }
-
-        final ImageButton[] click = {img[ran[0]], img[ran[1]], img[ran[2]], img[ran[3]],
-                img[ran[4]], img[ran[5]], img[ran[6]], img[ran[7]], img[ran[8]],
-                img[ran[9]], img[ran[10]], img[ran[11]], img[ran[12]], img[ran[13]],
-                img[ran[14]], img[ran[15]]};
-
-        img[ran[0]].setOnClickListener(new OnClickListener() {
+        click[0].setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
-                if (c == 1) {
-                    click[0].setEnabled(false);
+                if (number > 3)
+                    missCount++;
+                if (number == 0 || number == 1) {
+                    if (oddNum[0] == 1) {
+                        number++;
+                    } else
+                        number += 2;
+                }
+
+                if (number == 2) {
+                    click[0].setSoundEffectsEnabled(false);
                     click[0].setColorFilter(0xaa808080);
-                    c++;
+                    number++;
                 }
             }
         });
 
-        img[ran[1]].setOnClickListener(new OnClickListener() {
+        click[1].setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
-                if (c == 2) {
-                    click[1].setEnabled(false);
+                if (number <= 2 || number >= 6)
+                    missCount++;
+                if (number == 3 || number == 4) {
+                    if (oddNum[1] == 1) {
+                        number++;
+                    } else
+                        number += 2;
+                }
+
+                if (number == 5) {
+                    click[1].setSoundEffectsEnabled(false);
                     click[1].setColorFilter(0xaa808080);
-                    c++;
+                    number++;
                 }
             }
         });
 
-        img[ran[2]].setOnClickListener(new OnClickListener() {
+        click[2].setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
-                if (c == 3) {
-                    click[2].setEnabled(false);
+                if (number <= 5 || number >= 9)
+                    missCount++;
+                if (number == 6 || number == 7) {
+                    if (oddNum[2] == 1) {
+                        number++;
+                    } else
+                        number += 2;
+                }
+
+                if (number == 8) {
+                    click[2].setSoundEffectsEnabled(false);
                     click[2].setColorFilter(0xaa808080);
-                    c++;
+                    number++;
                 }
+
             }
         });
 
-        img[ran[3]].setOnClickListener(new OnClickListener() {
+        click[3].setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
-                if (c == 4) {
-                    click[3].setEnabled(false);
+                if (number <= 8 || number >= 12)
+                    missCount++;
+                if (number == 9 || number == 10) {
+                    if (oddNum[3] == 1) {
+                        number++;
+                    } else
+                        number += 2;
+                }
+
+                if (number == 11) {
+                    click[3].setSoundEffectsEnabled(false);
                     click[3].setColorFilter(0xaa808080);
-                    c++;
+                    number++;
                 }
             }
         });
 
-        img[ran[4]].setOnClickListener(new OnClickListener() {
+        click[4].setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
-                if (c == 5) {
-                    click[4].setEnabled(false);
+                if (number <= 11 || number >= 15)
+                    missCount++;
+                if (number == 12 || number == 13) {
+                    if (oddNum[4] == 1) {
+                        number++;
+                    } else
+                        number += 2;
+                }
+
+                if (number == 14) {
+                    click[4].setSoundEffectsEnabled(false);
                     click[4].setColorFilter(0xaa808080);
-                    c++;
+                    number++;
                 }
+
             }
         });
 
-        img[ran[5]].setOnClickListener(new OnClickListener() {
+        click[5].setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
-                if (c == 6) {
-                    click[5].setEnabled(false);
+                if (number <= 14 || number >= 18)
+                    missCount++;
+                if (number == 15 || number == 16) {
+                    if (oddNum[5] == 1) {
+                        number++;
+                    } else
+                        number += 2;
+                }
+
+                if (number == 17) {
+                    click[5].setSoundEffectsEnabled(false);
                     click[5].setColorFilter(0xaa808080);
-                    c++;
+                    number++;
                 }
             }
         });
 
-        img[ran[6]].setOnClickListener(new OnClickListener() {
+        click[6].setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
-                if (c == 7) {
-                    click[6].setEnabled(false);
+                if (number <= 17 || number >= 21)
+                    missCount++;
+                if (number == 18 || number == 19) {
+                    if (oddNum[6] == 1) {
+                        number++;
+                    } else
+                        number += 2;
+                }
+
+                if (number == 20) {
+                    click[6].setSoundEffectsEnabled(false);
                     click[6].setColorFilter(0xaa808080);
-                    c++;
+                    number++;
                 }
             }
         });
 
-        img[ran[7]].setOnClickListener(new OnClickListener() {
+        click[7].setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
-                if (c == 8) {
-                    click[7].setEnabled(false);
+                if (number <= 20 || number >= 24)
+                    missCount++;
+                if (number == 21 || number == 22) {
+                    if (oddNum[7] == 1) {
+                        number++;
+                    } else
+                        number += 2;
+                }
+
+                if (number == 23) {
+                    click[7].setSoundEffectsEnabled(false);
                     click[7].setColorFilter(0xaa808080);
-                    c++;
+                    number++;
                 }
             }
         });
 
-        img[ran[8]].setOnClickListener(new OnClickListener() {
+        click[8].setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
-                if (c == 9) {
-                    click[8].setEnabled(false);
+                if (number <= 23 || number >= 27)
+                    missCount++;
+                if (number == 24 || number == 25) {
+                    if (oddNum[8] == 1) {
+                        number++;
+                    } else
+                        number += 2;
+                }
+
+                if (number == 26) {
+                    click[8].setSoundEffectsEnabled(false);
                     click[8].setColorFilter(0xaa808080);
-                    c++;
+                    number++;
                 }
             }
         });
 
-        img[ran[9]].setOnClickListener(new OnClickListener() {
+        click[9].setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
-                if (c == 10) {
-                    click[9].setEnabled(false);
+                if (number <= 26 || number >= 30)
+                    missCount++;
+                if (number == 27 || number == 28) {
+                    if (oddNum[9] == 1) {
+                        number++;
+                    } else
+                        number += 2;
+                }
+
+                if (number == 29) {
+                    click[9].setSoundEffectsEnabled(false);
                     click[9].setColorFilter(0xaa808080);
-                    c++;
+                    number++;
                 }
             }
         });
 
-        img[ran[10]].setOnClickListener(new OnClickListener() {
+        click[10].setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
-                if (c == 11) {
-                    click[10].setEnabled(false);
+                if (number <= 29 || number >= 33)
+                    missCount++;
+                if (number == 30 || number == 31) {
+                    if (oddNum[10] == 1) {
+                        number++;
+                    } else
+                        number += 2;
+                }
+
+                if (number == 32) {
+                    click[10].setSoundEffectsEnabled(false);
                     click[10].setColorFilter(0xaa808080);
-                    c++;
+                    number++;
                 }
             }
         });
 
-        img[ran[11]].setOnClickListener(new OnClickListener() {
+        click[11].setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
-                if (c == 12) {
-                    click[11].setEnabled(false);
+                if (number <= 32 || number >= 36)
+                    missCount++;
+                if (number == 33 || number == 34) {
+                    if (oddNum[11] == 1) {
+                        number++;
+                    } else
+                        number += 2;
+                }
+
+                if (number == 35) {
+                    click[11].setSoundEffectsEnabled(false);
                     click[11].setColorFilter(0xaa808080);
-                    c++;
+                    number++;
                 }
             }
         });
 
-        img[ran[12]].setOnClickListener(new OnClickListener() {
+        click[12].setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
-                if (c == 13) {
-                    click[12].setEnabled(false);
+                if (number <= 35 || number >= 39)
+                    missCount++;
+                if (number == 36 || number == 37) {
+                    if (oddNum[12] == 1) {
+                        number++;
+                    } else
+                        number += 2;
+                }
+
+                if (number == 38) {
+                    click[12].setSoundEffectsEnabled(false);
                     click[12].setColorFilter(0xaa808080);
-                    c++;
+                    number++;
                 }
             }
         });
 
-        img[ran[13]].setOnClickListener(new OnClickListener() {
+        click[13].setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
-                if (c == 14) {
-                    click[13].setEnabled(false);
+                if (number <= 38 || number >= 42)
+                    missCount++;
+                if (number == 39 || number == 40) {
+                    if (oddNum[13] == 1) {
+                        number++;
+                    } else
+                        number += 2;
+                }
+
+                if (number == 41) {
+                    click[13].setSoundEffectsEnabled(false);
                     click[13].setColorFilter(0xaa808080);
-                    c++;
+                    number++;
                 }
             }
         });
 
-        img[ran[14]].setOnClickListener(new OnClickListener() {
+        click[14].setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
-                if (c == 15) {
-                    click[14].setEnabled(false);
+                if (number <= 41 || number >= 45)
+                    missCount++;
+                if (number == 42 || number == 43) {
+                    if (oddNum[14] == 1) {
+                        number++;
+                    } else
+                        number += 2;
+                }
+
+                if (number == 44) {
+                    click[14].setSoundEffectsEnabled(false);
                     click[14].setColorFilter(0xaa808080);
-                    c++;
+                    number++;
+                }
+            }
+        });
+
+        click[15].setOnClickListener(new OnClickListener() {
+            public void onClick(View v) {
+                if (number <= 44 || number >= 48)
+                    missCount++;
+                if (number == 45 || number == 46) {
+                    if (oddNum[15] == 1) {
+                        number++;
+                    } else
+                        number += 2;
+                }
+
+                if (number == 47) {
+                    click[15].setSoundEffectsEnabled(false);
+                    click[15].setColorFilter(0xaa808080);
+                    number++;
+                }
+            }
+        });
+
+        click[16].setOnClickListener(new OnClickListener() {
+            public void onClick(View v) {
+                if (number <= 47 || number >= 51)
+                    missCount++;
+                if (number == 48 || number == 49) {
+                    if (oddNum[16] == 1) {
+                        number++;
+                    } else
+                        number += 2;
+                }
+
+                if (number == 50) {
+                    click[16].setSoundEffectsEnabled(false);
+                    click[16].setColorFilter(0xaa808080);
+                    number++;
                 }
             }
         });
 
 
-        img[ran[15]].setOnClickListener(new OnClickListener() {
+        click[17].setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
-                if (c == 16) {
-                    click[15].setEnabled(false);
-                    click[15].setColorFilter(0xaa808080);
+                if (number <= 50)
+                    missCount++;
+                if (number == 51 || number == 52) {
+                    if (oddNum[17] == 1) {
+                        number++;
+                    } else
+                        number += 2;
+                }
+
+                if (number == 53) {
+                    click[17].setSoundEffectsEnabled(false);
+                    click[17].setColorFilter(0xaa808080);
                     loop.stop();
                     Toast.makeText(getApplicationContext(), "ゲームクリア",
                             Toast.LENGTH_LONG).show();
-                    c++;
+                    number++;
                     Button btn1 = (Button) gameactivity.this.findViewById(R.id.egame);
                     btn1.setVisibility(View.VISIBLE);
-
-                    for (int i = 0; i <= 4; i++) {
+                    for (int i = 0; i <= 7; i++) {
                         timer[i].setVisibility(View.VISIBLE);
                     }
+                    missTimes.setText(String.format("%1$02d", missCount));
                 }
             }
         });
@@ -260,10 +488,8 @@ public class gameactivity extends ActionBarActivity {
         btnNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (c > 16) {
-                    Intent intent = new Intent(gameactivity.this, MainActivity.class);
-                    startActivity(intent);
-                }
+                Intent intent = new Intent(gameactivity.this, MainActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -273,10 +499,10 @@ public class gameactivity extends ActionBarActivity {
     public void times() {
         min = (int) (((System.currentTimeMillis() - date)) / 1000) / 60;
         sec = (int) (((System.currentTimeMillis() - date)) / 1000) % 60;
-        m_Sec = (int) (((System.currentTimeMillis() - date)) / 10) % 10;
+        mSec = (int) (((System.currentTimeMillis() - date)) / 10) % 10;
         timerMin.setText(String.format("%1$02d", min));
         timerSec.setText(String.format("%1$02d", sec));
-        timerMs.setText(String.format("%1$01d", m_Sec));
+        timerMs.setText(String.format("%1$01d", mSec));
     }
 
     class Loop extends Handler {
