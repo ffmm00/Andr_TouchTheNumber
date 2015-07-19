@@ -132,7 +132,7 @@ public class gameactivity extends ActionBarActivity {
 
         click[0].setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
-                if (number > 3)
+                if (number >= 3)
                     missCount++;
                 if (number == 0 || number == 1) {
                     if (oddNum[0] == 1) {
